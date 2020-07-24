@@ -29,10 +29,6 @@ class DownloadWindow(Frame):
         self.videoUrl = StringVar()
         self.videoEntry = Entry(master, textvariable=self.videoUrl)
         self.videoEntry.grid(row=2, column=1)
-        #self.videoEntry.bind("<FocusOut>", self.loadVideoType)  
-
-        #self.getbutton = Button(master, text = "Get", command=self.loadVid)
-        #self.getbutton.grid(row = 2, column = 2)
 
         self.typeLabel = Label(master, text="Type(Video/Audio)")
         self.typeLabel.grid(row=3, column=0)
@@ -48,21 +44,9 @@ class DownloadWindow(Frame):
         self.typeQuality.grid(row=4, column=1)
         self.typeQuality.current(0)                                            
 
-        self.button = Button(master, text = "Submit", command=self.downloadContent)
+        self.button = Button(master, text = "Download", command=self.downloadContent)
         self.button.grid(row = 5, column = 1)  
 
-
-    def loadVid(self):
-
-        if len(self.outputQuality) <= 1:
-            youtube_video_url = self.videoUrl.get()
-            yt_obj = YouTube(youtube_video_url)
-            
-            for stream in yt_obj.streams:
-                self.outputQuality.append(stream.resolution) 
-                self.outputQuality.append(stream.abr) 
-                
-        self.typeQuality.config(values=list(set(self.outputQuality)))
 
     def downloadContent(self):
         try:            
@@ -84,8 +68,7 @@ class DownloadWindow(Frame):
 
 
 if __name__ == '__main__':
-    downloadRoot = Tk()
-    #downloadRoot.geometry("250x150+300+300")
+    downloadRoot = Tk()    
     downloadRoot.resizable(0,0)
     downloadRoot.eval('tk::PlaceWindow . center')
     DownloadWindow(downloadRoot)
